@@ -4020,12 +4020,6 @@
 		(uuid "d7338ccc-e2b0-426a-8bf9-2ddc8ca4fb6f")
 	)
 	(junction
-		(at 97.79 35.56)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "08b7024a-deae-4300-86cb-ea57683b5e1c")
-	)
-	(junction
 		(at 39.37 147.32)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4116,6 +4110,12 @@
 		(uuid "7aff16e8-b23e-4421-9814-63fc7acc92a0")
 	)
 	(junction
+		(at 97.79 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7c77a043-cd8b-4214-8505-b906e69a7671")
+	)
+	(junction
 		(at 67.31 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4182,10 +4182,6 @@
 		(uuid "ff72c396-9798-4a81-83ea-27ddc65e17c0")
 	)
 	(no_connect
-		(at 92.71 40.64)
-		(uuid "036a8be9-94ac-4d50-84ff-bfb5991fe2a2")
-	)
-	(no_connect
 		(at 102.87 137.16)
 		(uuid "441c8147-63f2-4647-ad2a-4ff91ac3f89a")
 	)
@@ -4200,6 +4196,10 @@
 	(no_connect
 		(at 102.87 101.6)
 		(uuid "96fd25ac-a325-4713-8732-a47460e8351b")
+	)
+	(no_connect
+		(at 92.71 40.64)
+		(uuid "9b5247fc-4f0c-4742-86a1-dd8c739e2c18")
 	)
 	(no_connect
 		(at 102.87 127)
@@ -5069,6 +5069,16 @@
 	)
 	(wire
 		(pts
+			(xy 92.71 35.56) (xy 97.79 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "640de178-8c57-44c5-9df0-f5135ad3691a")
+	)
+	(wire
+		(pts
 			(xy 50.8 157.48) (xy 52.07 157.48)
 		)
 		(stroke
@@ -5646,16 +5656,6 @@
 			(type default)
 		)
 		(uuid "c2132f79-39d4-4f74-bf81-666d2d6f7f69")
-	)
-	(wire
-		(pts
-			(xy 92.71 35.56) (xy 97.79 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c59ff4fe-3e1a-42b3-b624-8662d83813c9")
 	)
 	(wire
 		(pts
@@ -14273,6 +14273,7 @@
 	(symbol
 		(lib_id "Connector:Conn_01x03_Pin")
 		(at 87.63 38.1 0)
+		(mirror x)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14280,10 +14281,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f629dbcb-1a6d-43ec-889c-aeb8d3ea33d3")
 		(property "Reference" "J5"
-			(at 88.265 30.48 0)
+			(at 86.868 29.21 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14293,7 +14293,7 @@
 			)
 		)
 		(property "Value" "Battery Conenctor"
-			(at 88.265 33.02 0)
+			(at 86.868 31.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
