@@ -1,0 +1,20 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "b67e3728-12ee-40c4-ab4d-89338715e708")
+	(paper "A4")
+	(lib_symbols)
+	(text "A sensible shutdown sequence, in order\n1. Detect the shutdown trigger - button held (with debounce + hold-duration check, e.g., \"held 1+ second\" to distinguish from an accidental tap), \nor a low-battery condition you've decided should trigger auto-shutdown\n2. Stop any in-progress RFID operation safely - if the PN532 is mid-read/write/emulate, don't just yank power; if writing to a tag, \nan interrupted write can corrupt that tag's data. Either wait for the current operation to finish, or explicitly abort it via the proper PN532 command sequence rather than just cutting power mid-transaction\n3. Save any state that needs to persist - if you're storing anything in the W25Q32 flash filesystem (last-read tag, settings, etc.), \nwrite it now, before power drops\n4. Give user feedback - show something on the OLED (\"Shutting down...\") so the person knows the button press registered and it's not just hanging or broken\n5. Power down peripherals gracefully, if applicable - e.g., explicitly turn off the PN532's RF field via its own command (rather than relying on power \nloss to do it), which is cleaner than an abrupt cutoff mid-field-generation\n6. Small deliberate delay - give the OLED time to actually finish drawing/refreshing its last frame, and give any flash write time to fully complete\n(flash writes aren't instant) before power disappears\n7. Release the latch - RP2040 drives its GPIO to tell the latch circuit \"okay, now actually cut power\" (this is the step that finally lets SYSOFF, \nor whatever pin your latch uses, go to its off state)"
+		(exclude_from_sim no)
+		(at 139.446 69.342 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "3a9fdd1f-c165-41b8-9c81-5099616abc5d")
+	)
+)
