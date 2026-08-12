@@ -1,1 +1,0 @@
-[('D3', 'C:\\Users\\Client\\AppData\\Local\\Programs\\KiCad\\10.0\\share\\kicad\\3dmodels\\Diode_SMD.3dshapes\\Nexperia_DSN1608-2_1.6x0.8mm.step'), ('D6', 'C:\\Users\\Client\\AppData\\Local\\Programs\\KiCad\\10.0\\share\\kicad\\3dmodels\\Diode_SMD.3dshapes\\Nexperia_DSN1608-2_1.6x0.8mm.step')]
