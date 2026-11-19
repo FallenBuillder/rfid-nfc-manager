@@ -1,0 +1,64 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export
+        run: |
+          P=v1/kicad/CurvePlotter
+          EXTRAS=v1/bom/extras.csv
+          mkdir -p out/gerbers
+
+          kicad-cli sch export pdf -o out/schematic.pdf $P.kicad_sch
+
+          # Buying BOM: MPN + Quantity only, one row per MPN
+          kicad-cli sch export bom -o out/bom-buy.csv \
+            --fields 'Mfr. No,${QUANTITY}' \
+            --labels 'Mfr. No,Quantity' \
+            --group-by 'Mfr. No' \
+            --sort-field 'Mfr. No' \
+            $P.kicad_sch
+            if grep -q '^"",' out/bom-buy.csv; then
+  		   echo "::error::Some parts have no Mfr. No"
+              exit 1
+		 fi
+
+          # User BOM: Reference, Value, Description, merged by Value + Description
+          kicad-cli sch export bom -o out/bom-user.csv \
+            --fields 'Reference,Value,Description' \
+            --labels 'Reference,Value,Description' \
+            --group-by 'Value,Description' \
+            --sort-field 'Reference' \
+            --ref-delimiter ', ' \
+            --ref-range-delimiter '' \
+            $P.kicad_sch
+
+          # Warn if any part is missing an MPN (empty first column)
+          if grep -q '^"",' out/bom-buy.csv; then
+            echo "::warning::Some parts have no MPN in the buying BOM"
+          fi
+
+          # Append off-board parts (screws, transformer, fuses...) to the buying BOM
+          if [ -f "$EXTRAS" ]; then
+            sed -i -e '$a\' out/bom-buy.csv
+            tail -n +2 "$EXTRAS" >> out/bom-buy.csv
+          fi
+
+          kicad-cli pcb export gerbers -o out/gerbers/ $P.kicad_pcb
+          kicad-cli pcb export drill -o out/gerbers/ $P.kicad_pcb
+          apt-get update && apt-get install -y zip
+          (cd out/gerbers && zip -r ../gerbers.zip .)
+          rm -r out/gerbers
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true

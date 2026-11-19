@@ -1,0 +1,5 @@
+* text=auto
+*.kicad_* text eol=lf
+*.pdf binary
+*.png binary
+*.step binary
