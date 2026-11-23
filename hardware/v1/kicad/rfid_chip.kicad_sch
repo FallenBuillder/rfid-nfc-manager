@@ -2303,7 +2303,7 @@
 	)
 	(text "One big pour on the 1st layer,\nconnected to the GNS plane via vias"
 		(exclude_from_sim no)
-		(at 77.47 148.59 0)
+		(at 71.374 148.336 0)
 		(effects
 			(font
 				(size 1.27 1.27)
